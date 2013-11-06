@@ -19,7 +19,7 @@ function sendReq(path, method, body, headers, cb) {
   xhr.send(body || void 0);
 }
 
-methods.forEach(function (method) {
+_.each(methods, function (method) {
 
   describe(method + ' method', function () {
 

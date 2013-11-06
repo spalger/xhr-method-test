@@ -2,11 +2,11 @@ var methods = ['GET', 'POST', 'PUT', 'DELETE'];
 var assert = require('assert');
 var _ = require('lodash');
 
-function sendReq(method, body, headers, respCode, cb) {
+function sendReq(params, cb) {
   var xhr = new XMLHttpRequest();
-  xhr.open(method || 'GET', 'http://spenceralger.com/echo/' + (respCode || ''), true);
+  xhr.open(params.method || 'GET', 'http://spenceralger.com/echo/' + (params.status || ''), true);
 
-  _.each(headers || {}, function (value, header) {
+  _.each(params.headers || {}, function (value, header) {
     xhr.setRequestHeader(header, value);
   });
 
@@ -16,7 +16,7 @@ function sendReq(method, body, headers, respCode, cb) {
     }
   };
 
-  xhr.send(body || void 0);
+  xhr.send(params.body || void 0);
 }
 
 _.each(methods, function (method) {
@@ -25,7 +25,7 @@ _.each(methods, function (method) {
 
     it('can be sent with just a URL', function (done) {
 
-      sendReq(method, null, null, null, function (resp, status) {
+      sendReq({method: method}, function (resp, status) {
         assert(status === 200);
         assert(resp.body == null);
         done();
@@ -35,7 +35,7 @@ _.each(methods, function (method) {
 
     it('can be sent with a body', function (done) {
       var reqBody = '{ "request": "body" }';
-      sendReq(method, reqBody, null, null, function (resp, status) {
+      sendReq({method: method, body: reqBody}, function (resp, status) {
         assert(status === 200);
         assert(resp.body === reqBody);
         done();
@@ -43,7 +43,7 @@ _.each(methods, function (method) {
     });
 
     it('can receive a 416', function (done) {
-      sendReq(416, method, null, null, function (resp, status) {
+      sendReq({method: method, status: 416}, function (resp, status) {
         assert(status === 416);
         done();
       });
@@ -51,7 +51,7 @@ _.each(methods, function (method) {
 
     it('can receive a 418 with a body', function (done) {
       var reqBody = '{ "request": "body" }';
-      sendReq(418, method, reqBody, null, function (resp, status) {
+      sendReq({method: method, body: reqBody, status: 418}, function (resp, status) {
         assert(status === 418);
         assert(resp.body === reqBody);
         done();

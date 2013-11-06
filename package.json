@@ -1,0 +1,40 @@
+{
+  "name": "xhr-method-test",
+  "version": "0.0.0",
+  "description": "a simple test suite to test browser's ability to use HTTP methods with XHR",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "mocha": "~1.14.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/spenceralger/xhr-method-test"
+  },
+  "keywords": [
+    "xhr",
+    "http",
+    "test",
+    "rest"
+  ],
+  "author": "Spencer Alger",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spenceralger/xhr-method-test/issues"
+  },
+  "testling": {
+    "browsers": [
+      "ie7",
+      "ie8",
+      "firefox/15",
+      "chrome/29",
+      "opera/12",
+      "safari/5.0.5"
+    ],
+    "harness" : "mocha",
+    "files": "test/*.js"
+  }
+}

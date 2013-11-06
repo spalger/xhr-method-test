@@ -1,6 +1,6 @@
 var methods = ['GET', 'POST', 'PUT', 'DELETE'];
 var _ = require('lodash');
-require('should');
+var assert = require('assert');
 
 function sendReq(params, cb) {
   var xhr = new XMLHttpRequest();
@@ -20,42 +20,38 @@ function sendReq(params, cb) {
 }
 
 _.each(methods, function (method) {
+  var reqBody = '{ "request": "body" }';
 
   describe(method + ' method', function () {
-
     it('can be sent with just a URL', function (done) {
-
       sendReq({method: method}, function (resp, status) {
-        status.should.equal(200);
-        resp.body.should.not.be.ok;
+        assert(status === 200, 'status should be 200');
+        assert(resp.body == null, 'resp.body should be empty');
         done();
       });
-
     });
 
     it('can receive a 416', function (done) {
       sendReq({method: method, status: 416}, function (resp, status) {
-        status.should.equal(416);
-        resp.body.should.not.be.ok;
+        assert(status === 416, 'status should be 416');
+        assert(resp.body == null, 'resp.body should be empty');
         done();
       });
     });
 
     if (method !== 'GET') {
       it('can be sent with a body', function (done) {
-        var reqBody = '{ "request": "body" }';
         sendReq({method: method, body: reqBody}, function (resp, status) {
-          status.should.equal(200);
-          resp.body.should.equal(reqBody);
+          assert(status === 200, 'status should be 200');
+          assert(resp.body === reqBody, 'resp.body should be ' + reqBody);
           done();
         });
       });
 
       it('can receive a 418 with a body', function (done) {
-        var reqBody = '{ "request": "body" }';
         sendReq({method: method, body: reqBody, status: 418}, function (resp, status) {
-          status.should.equal(418);
-          resp.body.should.equal(reqBody);
+          assert(status === 418, 'status should be 418');
+          assert(resp.body === reqBody, 'resp.body should be ' + reqBody);
           done();
         });
       });

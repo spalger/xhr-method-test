@@ -2,6 +2,8 @@ var methods = ['GET', 'POST', 'PUT', 'DELETE'];
 var assert = require('assert');
 var _ = require('lodash');
 
+var should = require('should');
+
 function sendReq(params, cb) {
   var xhr = new XMLHttpRequest();
   xhr.open(params.method || 'GET', 'http://spenceralger.com/echo/' + (params.status || ''), true);
@@ -11,7 +13,7 @@ function sendReq(params, cb) {
   });
 
   xhr.onreadystatechange = function () {
-    if (xhr.readystate === 4) {
+    if (xhr.readyState === 4) {
       cb(JSON.parse(xhr.responseText), xhr.status, xhr);
     }
   };
@@ -26,37 +28,40 @@ _.each(methods, function (method) {
     it('can be sent with just a URL', function (done) {
 
       sendReq({method: method}, function (resp, status) {
-        assert(status === 200);
-        assert(resp.body == null);
+        status.should.equal(200);
+        resp.body.should.not.be.ok;
         done();
       });
 
-    });
-
-    it('can be sent with a body', function (done) {
-      var reqBody = '{ "request": "body" }';
-      sendReq({method: method, body: reqBody}, function (resp, status) {
-        assert(status === 200);
-        assert(resp.body === reqBody);
-        done();
-      });
     });
 
     it('can receive a 416', function (done) {
       sendReq({method: method, status: 416}, function (resp, status) {
-        assert(status === 416);
+        status.should.equal(416);
+        resp.body.should.not.be.ok;
         done();
       });
     });
 
-    it('can receive a 418 with a body', function (done) {
-      var reqBody = '{ "request": "body" }';
-      sendReq({method: method, body: reqBody, status: 418}, function (resp, status) {
-        assert(status === 418);
-        assert(resp.body === reqBody);
-        done();
+    if (method !== 'GET') {
+      it('can be sent with a body', function (done) {
+        var reqBody = '{ "request": "body" }';
+        sendReq({method: method, body: reqBody}, function (resp, status) {
+          status.should.equal(200);
+          resp.body.should.equal(reqBody);
+          done();
+        });
       });
-    });
+
+      it('can receive a 418 with a body', function (done) {
+        var reqBody = '{ "request": "body" }';
+        sendReq({method: method, body: reqBody, status: 418}, function (resp, status) {
+          status.should.equal(418);
+          resp.body.should.equal(reqBody);
+          done();
+        });
+      });
+    }
 
   });
 

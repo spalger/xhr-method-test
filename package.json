@@ -4,7 +4,8 @@
   "description": "a simple test suite to test browser's ability to use HTTP methods with XHR",
   "main": "index.js",
   "dependencies": {
-    "lodash": "~2.2.1"
+    "lodash": "~2.2.1",
+    "should": "~2.0.2"
   },
   "devDependencies": {
     "mocha": "~1.14.0"

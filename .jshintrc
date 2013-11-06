@@ -3,6 +3,7 @@
   "browser": true,
   "eqnull": true,
   "undef": true,
+  "expr": true,
 
   "globals": {
     "describe": false,

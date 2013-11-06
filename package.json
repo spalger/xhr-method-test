@@ -14,16 +14,24 @@
     "grunt-testling": "~0.1.0"
   },
   "testling": {
-    "browsers": [
-      "ie6",
-      "ie7",
-      "ie8",
-      "ie9",
-      "firefox/15",
-      "chrome/22",
-      "opera/12",
-      "safari/5.1"
-    ],
+    "browsers": {
+      "explorer": [
+        "8.0", "9.0"
+      ],
+      "firefox": [
+        "23.0", "nightly"
+      ],
+      "chrome": [
+        "29.0", "canary"
+      ],
+      "opera": [
+        "15.0"
+      ],
+      "safari": [
+        "4.0",
+        "5.1"
+      ]
+    },
     "harness": "mocha",
     "files": "test/basic.js"
   },

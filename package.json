@@ -3,16 +3,24 @@
   "version": "0.0.0",
   "description": "a simple test suite to test browser's ability to use HTTP methods with XHR",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "lodash": "~2.2.1"
+  },
   "devDependencies": {
     "mocha": "~1.14.0"
   },
   "testling": {
     "browsers": [
-      "ie6", "ie7", "ie8", "ie9",
-      "firefox/15", "chrome/22", "opera/12", "safari/5.1"
+      "ie6",
+      "ie7",
+      "ie8",
+      "ie9",
+      "firefox/15",
+      "chrome/22",
+      "opera/12",
+      "safari/5.1"
     ],
-    "harness" : "mocha",
+    "harness": "mocha",
     "files": "test/basic.js"
   },
   "scripts": {

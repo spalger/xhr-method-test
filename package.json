@@ -7,6 +7,14 @@
   "devDependencies": {
     "mocha": "~1.14.0"
   },
+  "testling": {
+    "browsers": [
+      "ie6", "ie7", "ie8", "ie9",
+      "firefox/15", "chrome/22", "opera/12", "safari/5.1"
+    ],
+    "harness" : "mocha",
+    "files": "test/basic.js"
+  },
   "scripts": {
     "test": "mocha"
   },
@@ -24,17 +32,5 @@
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/spenceralger/xhr-method-test/issues"
-  },
-  "testling": {
-    "browsers": [
-      "ie7",
-      "ie8",
-      "firefox/15",
-      "chrome/29",
-      "opera/12",
-      "safari/5.0.5"
-    ],
-    "harness" : "mocha",
-    "files": "test/*.js"
   }
 }

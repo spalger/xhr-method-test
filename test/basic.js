@@ -1,8 +1,6 @@
 var methods = ['GET', 'POST', 'PUT', 'DELETE'];
-var assert = require('assert');
 var _ = require('lodash');
-
-var should = require('should');
+require('should');
 
 function sendReq(params, cb) {
   var xhr = new XMLHttpRequest();

@@ -1,6 +1,6 @@
 {
   "name": "xhr-method-test",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "a simple test suite to test browser's ability to use HTTP methods with XHR",
   "main": "index.js",
   "dependencies": {
@@ -8,7 +8,10 @@
     "should": "~2.0.2"
   },
   "devDependencies": {
-    "mocha": "~1.14.0"
+    "mocha": "~1.14.0",
+    "grunt": "~0.4.1",
+    "grunt-contrib-jshint": "~0.7.1",
+    "grunt-testling": "~0.1.0"
   },
   "testling": {
     "browsers": [

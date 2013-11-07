@@ -15,7 +15,7 @@
   "testling": {
     "browsers": {
       "explorer": [
-        "8.0", "9.0"
+        "8.0", "9.0", "10.0"
       ],
       "firefox": [
         "23.0", "nightly"

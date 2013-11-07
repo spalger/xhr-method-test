@@ -1,5 +1,5 @@
 /* global XDomainRequest:true */
-var methods = ['GET', 'POST', 'PUT', 'DELETE'];
+var methods = ['GET', 'HEAD', 'POST', 'PUT', 'DELETE'];
 var _ = require('lodash');
 var assert = require('assert');
 

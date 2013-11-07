@@ -14,7 +14,7 @@ function sendReq(params, cb) {
     var body;
     if (xhr.readyState === 4) {
       if (window.JSON) {
-        body = JSON.stringify(xhr.responseText);
+        body = JSON.parse(xhr.responseText);
       } else {
         /* jshint evil: true */
         eval('body = ' + xhr.responseText);

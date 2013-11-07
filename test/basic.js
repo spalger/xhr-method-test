@@ -1,14 +1,22 @@
+/* global XDomainRequest:true */
 var methods = ['GET', 'POST', 'PUT', 'DELETE'];
 var _ = require('lodash');
 var assert = require('assert');
 
 function sendReq(params, cb) {
-  var xhr = new XMLHttpRequest();
+  var xhr;
+  if (typeof XDomainRequest !== 'undefined') {
+    xhr = new XDomainRequest();
+  } else {
+    xhr = new XMLHttpRequest();
+  }
   xhr.open(params.method || 'GET', 'http://spenceralger.com/echo/' + (params.status || ''), true);
 
-  _.each(params.headers || {}, function (value, header) {
-    xhr.setRequestHeader(header, value);
-  });
+  if (typeof xhr.setRequestHeader === 'function') {
+    _.each(params.headers || {}, function (value, header) {
+      xhr.setRequestHeader(header, value);
+    });
+  }
 
   xhr.onreadystatechange = function () {
     var body;

@@ -11,8 +11,15 @@ function sendReq(params, cb) {
   });
 
   xhr.onreadystatechange = function () {
+    var body;
     if (xhr.readyState === 4) {
-      cb(JSON.parse(xhr.responseText), xhr.status, xhr);
+      if (window.JSON) {
+        body = JSON.stringify(xhr.responseText);
+      } else {
+        /* jshint evil: true */
+        eval('body = ' + xhr.responseText);
+      }
+      cb(body, xhr.status, xhr);
     }
   };
 
@@ -26,7 +33,7 @@ _.each(methods, function (method) {
     it('can be sent with just a URL', function (done) {
       sendReq({method: method}, function (resp, status) {
         assert(status === 200, 'status should be 200');
-        assert(resp.body == null, 'resp.body should be empty');
+        assert(!resp.body, 'resp.body should be empty');
         done();
       });
     });
@@ -34,7 +41,7 @@ _.each(methods, function (method) {
     it('can receive a 416', function (done) {
       sendReq({method: method, status: 416}, function (resp, status) {
         assert(status === 416, 'status should be 416');
-        assert(resp.body == null, 'resp.body should be empty');
+        assert(!resp.body, 'resp.body should be empty');
         done();
       });
     });

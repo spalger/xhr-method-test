@@ -4,12 +4,11 @@ var _ = require('lodash');
 var assert = require('assert');
 
 function sendReq(params, cb) {
-  var xhr;
-  if (typeof XDomainRequest !== 'undefined') {
+  var xhr = new XMLHttpRequest();
+  if (("withCredentials" in xhr) === false) {
     xhr = new XDomainRequest();
-  } else {
-    xhr = new XMLHttpRequest();
   }
+
   xhr.open(params.method || 'GET', 'http://spenceralger.com/echo/' + (params.status || ''), true);
 
   if (typeof xhr.setRequestHeader === 'function') {
